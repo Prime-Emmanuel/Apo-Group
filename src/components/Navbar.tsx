@@ -4,12 +4,10 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useModal } from "@/context/ModalContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { openQuoteModal } = useModal();
 
   useEffect(() => {
     setMounted(true);
@@ -48,12 +46,13 @@ export default function Navbar() {
             <Link href="#services" className="text-[11px] md:text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
               Services
             </Link>
-            <button
-              onClick={openQuoteModal}
+            {/* 👇 MODIFICATION : bouton remplacé par un lien */}
+            <Link
+              href="/demande"
               className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-[11px] md:text-xs font-bold transition-all uppercase tracking-widest"
             >
               Obtenir un devis
-            </button>
+            </Link>
           </div>
 
           <button className="md:hidden text-white z-50 p-2 -mr-2" onClick={() => setIsOpen(!isOpen)}>
@@ -82,15 +81,14 @@ export default function Navbar() {
                 <Link href="#services" className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>Services</Link>
               </motion.div>
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="mt-8 w-full max-w-[250px]">
-                <button
-                  onClick={() => {
-                    openQuoteModal();
-                    setIsOpen(false);
-                  }}
-                  className="w-full py-4 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                {/* 👇 MODIFICATION : bouton mobile remplacé par un lien */}
+                <Link
+                  href="/demande"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full py-4 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                 >
                   Obtenir un devis
-                </button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>
