@@ -14,11 +14,10 @@ export default function Hero() {
       transition: { staggerChildren: 0.15, delayChildren: 0.1 }
     }
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } }
-  };
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const } }
+};
 
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-transparent pt-24 pb-32 md:pt-40 md:pb-48">
