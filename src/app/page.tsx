@@ -17,9 +17,9 @@ import Footer from "@/components/Footer";
 // ----------------------------------------------------------------------
 
 const trustData = [
-  { icon: Star, label: "+150 projets", sub: "réalisés au Cameroun" },
+  { icon: Star, label: "+10 projets", sub: "réalisés au Cameroun" },
   { icon: Users, label: "+10 ans", sub: "d’expertise locale" },
-  { icon: ShieldCheck, label: "100%", sub: "clients satisfaits" },
+  { icon: ShieldCheck, label: "95%", sub: "clients satisfaits" },
 ];
 
 const services = [
