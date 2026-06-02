@@ -271,7 +271,7 @@ export default function TopographiePage() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors"
         >
-          <Phone size={18} /> Ouvrir WhatsApp
+          <Phone size={18} /> WhatsApp
         </a>
       </motion.section>
 
