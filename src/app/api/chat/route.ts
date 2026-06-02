@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (garde le même prompt)
+const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (ton prompt)
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,8 +8,9 @@ export async function POST(req: NextRequest) {
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
+      console.error("OPENAI_API_KEY is not defined");
       return NextResponse.json(
-        { message: "Configuration manquante : clé API OpenAI non définie.", locked: false },
+        { message: "Configuration manquante : la clé API OpenAI n'est pas définie sur le serveur.", locked: false },
         { status: 500 }
       );
     }
