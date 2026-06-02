@@ -1,14 +1,63 @@
-// src/app/topographie/page.tsx
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Map, FileSearch, ShieldCheck, AlertTriangle, HelpCircle, Phone, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const steps = [ /* données inchangées */ ];
-const mistakes = [ /* données inchangées */ ];
-const faq = [ /* données inchangées */ ];
+const steps = [
+  {
+    title: "1. Analyse de votre besoin",
+    desc: "Nous définissons ensemble le type de relevé nécessaire : bornage, plan topographique, lotissement, etc.",
+  },
+  {
+    title: "2. Préparation & autorisations",
+    desc: "Nous rassemblons les documents cadastraux et obtenons les accords nécessaires.",
+  },
+  {
+    title: "3. Intervention terrain",
+    desc: "Nos géomètres réalisent les mesures avec du matériel GNSS de précision.",
+  },
+  {
+    title: "4. Traitement des données",
+    desc: "Calculs, dessin assisté par ordinateur et production des plans.",
+  },
+  {
+    title: "5. Livraison du dossier",
+    desc: "Vous recevez les plans, le rapport de bornage et les fichiers numériques.",
+  },
+  {
+    title: "6. Suivi post-livraison",
+    desc: "Nous restons disponibles pour toute mise à jour ou modification cadastrale.",
+  },
+];
+
+const mistakes = [
+  "Réaliser des travaux sans plan topographique à jour.",
+  "Ignorer le bornage contradictoire avec les voisins.",
+  "Utiliser des instruments non étalonnés.",
+  "Négliger le rattachement géodésique pour les grands projets.",
+  "Se passer d’un professionnel agréé.",
+];
+
+const faq = [
+  {
+    q: "Quelle est la différence entre un bornage et un lotissement ?",
+    r: "Le bornage délimite une parcelle existante. Le lotissement divise un terrain en plusieurs lots.",
+  },
+  {
+    q: "Combien de temps prend un relevé topographique ?",
+    r: "De 1 à 5 jours selon la superficie et la complexité du terrain.",
+  },
+  {
+    q: "Les plans sont-ils reconnus par le cadastre ?",
+    r: "Oui, nos plans sont conformes aux normes camerounaises et acceptés par les administrations.",
+  },
+  {
+    q: "Puis-je avoir une copie numérique ?",
+    r: "Bien sûr, vous recevez les fichiers DWG, DXF et PDF en plus des tirages papier.",
+  },
+];
 
 export default function TopographiePage() {
   const heroRef = useRef(null);
@@ -68,7 +117,7 @@ export default function TopographiePage() {
         </motion.a>
       </section>
 
-      {/* Sections avec apparition latérale */}
+      {/* À qui s’adresse le service */}
       <motion.section
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -76,7 +125,9 @@ export default function TopographiePage() {
         className="py-16 px-5 md:px-10 max-w-4xl mx-auto text-center"
       >
         <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6">À qui s’adresse ce service ?</h2>
-        <p className="text-gray-300 text-lg leading-relaxed">Propriétaires fonciers, promoteurs immobiliers, architectes...</p>
+        <p className="text-gray-300 text-lg leading-relaxed">
+          Propriétaires fonciers, promoteurs immobiliers, architectes, bureaux d’études, collectivités. Toute personne ayant besoin de délimiter ou de cartographier un terrain.
+        </p>
       </motion.section>
 
       {/* Pourquoi – animation de grille */}
@@ -87,14 +138,20 @@ export default function TopographiePage() {
         className="py-16 px-5 md:px-10 max-w-4xl mx-auto"
       >
         <div className="p-8 md:p-12 rounded-3xl bg-green-500/5 border border-green-500/20 backdrop-blur-sm">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Pourquoi la topographie est la <span className="text-green-400">première pierre</span></h2>
-          <p className="text-gray-300">Un relevé topographique précis évite les litiges...</p>
+          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+            Pourquoi la topographie est la <span className="text-green-400">première pierre</span>
+          </h2>
+          <p className="text-gray-300">
+            Un relevé topographique précis évite les litiges de voisinage, garantit la conformité cadastrale et sécurise vos transactions immobilières. Sans plan fiable, votre projet reste fragile.
+          </p>
         </div>
       </motion.section>
 
       {/* Étapes – animation de ligne qui se déroule */}
       <section className="py-16 px-5 md:px-10 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-12">Notre méthode <span className="text-green-400">en 6 étapes</span></h2>
+        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-12">
+          Notre méthode <span className="text-green-400">en 6 étapes</span>
+        </h2>
         <div className="relative">
           {/* Ligne verticale décorative sur desktop */}
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-green-500/50 to-transparent" />
@@ -121,13 +178,15 @@ export default function TopographiePage() {
       <section className="py-16 px-5 md:px-10 max-w-4xl mx-auto">
         <div className="p-8 md:p-12 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-sm">
           <FileSearch className="w-10 h-10 text-green-400 mx-auto mb-4" />
-          <h2 className="text-2xl md:text-4xl font-bold font-heading text-center mb-6">Documents & vérifications essentiels</h2>
+          <h2 className="text-2xl md:text-4xl font-bold font-heading text-center mb-6">
+            Documents & vérifications essentiels
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-400">
             {[
               "Titre foncier ou titre de propriété",
               "Plan cadastral existant",
               "Pièce d’identité du demandeur",
-              "Procuration si mandataire"
+              "Procuration si mandataire",
             ].map((doc, idx) => (
               <motion.div
                 key={idx}
@@ -147,7 +206,9 @@ export default function TopographiePage() {
 
       {/* Erreurs – scale alterné */}
       <section className="py-16 px-5 md:px-10 max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-8">Les erreurs à <span className="text-red-400">ne pas commettre</span></h2>
+        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-8">
+          Les erreurs à <span className="text-red-400">ne pas commettre</span>
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {mistakes.map((item, idx) => (
             <motion.div
@@ -167,7 +228,9 @@ export default function TopographiePage() {
 
       {/* FAQ */}
       <section className="py-16 px-5 md:px-10 max-w-3xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-8">Questions <span className="text-green-400">fréquentes</span></h2>
+        <h2 className="text-3xl md:text-5xl font-bold font-heading text-center mb-8">
+          Questions <span className="text-green-400">fréquentes</span>
+        </h2>
         <div className="space-y-4">
           {faq.map((item, idx) => (
             <motion.details
@@ -196,9 +259,18 @@ export default function TopographiePage() {
         viewport={{ once: true }}
         className="py-16 px-5 md:px-10 text-center"
       >
-        <h2 className="text-2xl md:text-4xl font-bold font-heading mb-4">Prêt à sécuriser votre terrain ?</h2>
-        <p className="text-gray-400 mb-8">Discutez directement avec notre géomètre expert via WhatsApp.</p>
-        <a href="https://wa.me/237000000000?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20un%20renseignement%20pour%20un%20projet%20de%20topographie." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors">
+        <h2 className="text-2xl md:text-4xl font-bold font-heading mb-4">
+          Prêt à sécuriser votre terrain ?
+        </h2>
+        <p className="text-gray-400 mb-8">
+          Discutez directement avec notre géomètre expert via WhatsApp.
+        </p>
+        <a
+          href="https://wa.me/237000000000?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20un%20renseignement%20pour%20un%20projet%20de%20topographie."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors"
+        >
           <Phone size={18} /> Ouvrir WhatsApp
         </a>
       </motion.section>
