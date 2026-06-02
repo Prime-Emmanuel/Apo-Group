@@ -266,7 +266,7 @@ export default function ForagePage() {
         <h2 className="text-2xl md:text-4xl font-bold font-heading mb-4">Prêt à sécuriser votre accès à l’eau ?</h2>
         <p className="text-gray-400 mb-8">Discutez directement avec notre expert forage via WhatsApp.</p>
         <a href="https://wa.me/237650331995?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20un%20renseignement%20pour%20un%20projet%20de%20forage." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors">
-          <Phone size={18} /> Ouvrir WhatsApp
+          <Phone size={18} /> WhatsApp
         </a>
       </motion.section>
 
