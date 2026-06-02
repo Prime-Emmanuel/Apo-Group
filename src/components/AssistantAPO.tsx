@@ -3,57 +3,115 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, Send, User, Bot, Phone } from "lucide-react";
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
+// ----------------------------------------------------------------------
+// Base de connaissances
+// ----------------------------------------------------------------------
+const SERVICES = [
+  { keys: ["forage", "eau", "pompe", "hydrogéologie", "forer", "foration"], page: "/forage", label: "Forage d’eau" },
+  { keys: ["topographie", "bornage", "plan", "cadastre", "géomètre", "délimitation", "lotissement"], page: "/topographie", label: "Topographie" },
+  { keys: ["terrain", "acheter", "vendre", "immobilier", "foncier", "titre foncier", "vérification", "document"], page: "/immobilier", label: "Immobilier / Vente de terrain" },
+  { keys: ["btp", "construction", "devis", "bâtiment", "gros œuvre"], page: "/demande", label: "Devis BTP" },
+];
+
+// Réponses rapides
+const RESPONSES = {
+  greeting: "Bonjour ! Je suis l’assistant APO GROUP. Parlez-moi de votre projet (forage, topographie, immobilier, BTP).",
+  askDetail: "Pouvez-vous préciser votre besoin ? Par exemple : 'Je cherche un forage' ou 'Je veux vérifier un titre foncier'.",
+  redirect: (label: string, page: string) =>
+    `Parfait ! Pour un service de **${label}**, je vous recommande de consulter cette page : ${page}. Vous y trouverez tous les détails et pourrez échanger avec un expert via WhatsApp.`,
+  offTopic: "Je suis désolé, je ne peux traiter que les questions liées aux services d’APO GROUP (forage, topographie, immobilier). Si votre demande ne concerne pas ces sujets, je vous invite à contacter un expert WhatsApp.",
+  lock: "ASSISTANT_VERROUILLE", // mot-clé interne
+  lockedMessage: "Conversation verrouillée. Merci de contacter directement l’équipe via WhatsApp.",
+};
+
+// ----------------------------------------------------------------------
+// Fonction de détection de service
+// ----------------------------------------------------------------------
+function detectService(text: string) {
+  const lower = text.toLowerCase();
+  for (const service of SERVICES) {
+    if (service.keys.some((k) => lower.includes(k))) {
+      return service;
+    }
+  }
+  return null;
 }
 
+// Vérification hors sujet basique
+function isOffTopic(text: string) {
+  const offTopicWords = ["météo", "politique", "santé", "médecin", "cinéma", "musique", "jeux", "cuisine", "sport"];
+  const lower = text.toLowerCase();
+  return offTopicWords.some((w) => lower.includes(w));
+}
+
+// ----------------------------------------------------------------------
+// Composant
+// ----------------------------------------------------------------------
 export default function AssistantAPO() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Bonjour ! Je suis l'assistant APO GROUP. Comment puis-je vous aider ? (Forage, topographie, immobilier)" },
+  const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([
+    { role: "assistant", content: RESPONSES.greeting },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [offTopicCount, setOffTopicCount] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll automatique vers le bas
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Focus input quand ouvert
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
 
-  const handleSend = async () => {
-    if (!input.trim() || loading || locked) return;
+  const handleSend = () => {
+    if (!input.trim() || locked) return;
 
-    const userMsg: Message = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMsg]);
+    const userMsg = input.trim();
+    setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
     setInput("");
-    setLoading(true);
 
-    try {
-      // Appel à notre API route
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
-        }),
-      });
-      const data = await res.json();
-      const assistantMsg: Message = { role: "assistant", content: data.message };
-      setMessages((prev) => [...prev, assistantMsg]);
-      if (data.locked) setLocked(true);
-    } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Désolé, une erreur est survenue." }]);
+    // Vérifier hors sujet
+    if (isOffTopic(userMsg)) {
+      const newCount = offTopicCount + 1;
+      setOffTopicCount(newCount);
+      if (newCount >= 2) {
+        setLocked(true);
+        setMessages((prev) => [...prev, { role: "assistant", content: RESPONSES.lockedMessage }]);
+        return;
+      } else {
+        setMessages((prev) => [...prev, { role: "assistant", content: RESPONSES.offTopic }]);
+        return;
+      }
     }
-    setLoading(false);
+
+    // Détecter un service
+    const service = detectService(userMsg);
+    if (service) {
+      setOffTopicCount(0); // reset
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: RESPONSES.redirect(service.label, service.page) },
+      ]);
+      return;
+    }
+
+    // Si le message est court / bonjour / merci
+    if (userMsg.length < 5) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: RESPONSES.askDetail },
+      ]);
+      return;
+    }
+
+    // Sinon, on tente de qualifier
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: "Je n’ai pas saisi votre besoin. " + RESPONSES.askDetail },
+    ]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -61,15 +119,13 @@ export default function AssistantAPO() {
   };
 
   const resetChat = () => {
-    setMessages([
-      { role: "assistant", content: "Bonjour ! Je suis l'assistant APO GROUP. Comment puis-je vous aider ? (Forage, topographie, immobilier)" },
-    ]);
+    setMessages([{ role: "assistant", content: RESPONSES.greeting }]);
     setLocked(false);
+    setOffTopicCount(0);
   };
 
   return (
     <>
-      {/* Bouton flottant */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-5 md:right-10 z-50 flex items-center gap-2 bg-brand-yellow text-black rounded-full p-3 md:p-4 shadow-[0_0_30px_rgba(250,204,21,0.3)] hover:scale-105 transition-transform"
@@ -79,7 +135,6 @@ export default function AssistantAPO() {
         <span className="hidden md:inline text-sm font-bold uppercase tracking-wider">Assistant</span>
       </button>
 
-      {/* Fenêtre de chat */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -88,10 +143,7 @@ export default function AssistantAPO() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex justify-end"
           >
-            <div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-              onClick={() => setIsOpen(false)}
-            />
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -135,28 +187,17 @@ export default function AssistantAPO() {
                     )}
                   </div>
                 ))}
-                {loading && (
-                  <div className="flex items-start gap-2">
-                    <div className="w-6 h-6 rounded-full bg-brand-yellow/20 flex items-center justify-center shrink-0">
-                      <Bot className="w-4 h-4 text-brand-yellow" />
-                    </div>
-                    <div className="bg-white/10 text-white rounded-2xl rounded-bl-sm px-4 py-2 text-sm">
-                      <span className="animate-pulse">...</span>
-                    </div>
-                  </div>
-                )}
                 {locked && (
                   <div className="text-center text-red-400 text-xs mt-2">
-                    Conversation verrouillée.{" "}
                     <button onClick={resetChat} className="underline hover:text-red-300">
-                      Recommencer
+                      Recommencer la conversation
                     </button>
                   </div>
                 )}
                 <div ref={bottomRef} />
               </div>
 
-              {/* Zone de saisie + WhatsApp shortcut */}
+              {/* Saisie + WhatsApp */}
               <div className="p-3 border-t border-white/10 bg-black/40">
                 <div className="flex items-center gap-2">
                   <input
@@ -166,12 +207,12 @@ export default function AssistantAPO() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder={locked ? "Conversation verrouillée" : "Écrivez votre message..."}
-                    disabled={locked || loading}
+                    disabled={locked}
                     className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand-yellow disabled:opacity-50 text-sm"
                   />
                   <button
                     onClick={handleSend}
-                    disabled={!input.trim() || loading || locked}
+                    disabled={!input.trim() || locked}
                     className="p-2 rounded-full bg-brand-yellow text-black disabled:opacity-50 transition-opacity"
                   >
                     <Send size={16} />
