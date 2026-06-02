@@ -1,4 +1,3 @@
-// src/app/forage/page.tsx
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
@@ -6,11 +5,60 @@ import { Droplets, FileSearch, ShieldCheck, AlertTriangle, HelpCircle, Phone, Ar
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const steps = [ /* données inchangées */ ];
-const mistakes = [ /* données inchangées */ ];
-const faq = [ /* données inchangées */ ];
+const steps = [
+  {
+    title: "1. Étude hydrogéologique",
+    desc: "Analyse du sous-sol, identification de la nappe phréatique et faisabilité technique.",
+  },
+  {
+    title: "2. Choix de la technique",
+    desc: "Forage manuel ou motorisé selon la profondeur et la nature du terrain.",
+  },
+  {
+    title: "3. Foration & tubage",
+    desc: "Réalisation du forage, mise en place des tubes et massif filtrant.",
+  },
+  {
+    title: "4. Équipement de surface",
+    desc: "Installation de la pompe, du réservoir et des raccordements nécessaires.",
+  },
+  {
+    title: "5. Analyse de l’eau",
+    desc: "Contrôle qualité complet pour garantir une eau potable.",
+  },
+  {
+    title: "6. Suivi & maintenance",
+    desc: "Contrats d’entretien pour la pérennité de votre installation.",
+  },
+];
 
-// Composant réutilisable pour les révélations avec effet "eau"
+const mistakes = [
+  "Forer sans étude géophysique préalable.",
+  "Choisir un prestataire non certifié.",
+  "Négliger l’analyse de l’eau après forage.",
+  "Sous-dimensionner la pompe par rapport au besoin.",
+  "Ignorer les démarches administratives (permis).",
+];
+
+const faq = [
+  {
+    q: "Quelle profondeur faut-il atteindre ?",
+    r: "Cela dépend de la géologie locale. Notre étude préalable détermine la profondeur exacte à forer.",
+  },
+  {
+    q: "Quel est le délai pour un forage complet ?",
+    r: "De 3 à 10 jours selon la profondeur, le type de sol et la logistique.",
+  },
+  {
+    q: "Faut-il un permis pour forer ?",
+    r: "Oui, dans la plupart des cas. Nous vous accompagnons dans l’obtention du permis de forage.",
+  },
+  {
+    q: "L’eau est-elle garantie ?",
+    r: "Notre étude préalable minimise les risques. En cas de débit insuffisant, nous proposons des solutions alternatives.",
+  },
+];
+
 function WaterReveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -99,7 +147,7 @@ export default function ForagePage() {
             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
               Pourquoi un forage <span className="text-water-400">réussi</span> change tout
             </h2>
-            <p className="text-gray-300">L’eau est une ressource vitale. Un forage bien conçu garantit une eau de qualité...</p>
+            <p className="text-gray-300">L’eau est une ressource vitale. Un forage bien conçu garantit une eau de qualité, en quantité suffisante, et une installation durable qui valorise votre patrimoine.</p>
           </div>
         </section>
       </WaterReveal>
@@ -139,7 +187,7 @@ export default function ForagePage() {
             <h2 className="text-2xl md:text-4xl font-bold font-heading mb-4 relative z-10">
               L’étude préalable : votre <span className="text-water-400">garantie</span>
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-6 relative z-10">Avant tout forage, nous réalisons une étude hydrogéologique...</p>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-6 relative z-10">Avant tout forage, nous réalisons une étude hydrogéologique pour déterminer la profondeur de la nappe, le débit estimé et la technique la mieux adaptée. Sans cette étape, vous risquez un forage sec ou inexploitable.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
               <a href="#cta-final" className="px-6 py-3 bg-water-500 hover:bg-water-600 text-white rounded-full font-semibold transition-colors">Demander une étude</a>
               <a href="#cta-final" className="px-6 py-3 border border-water-500 text-water-400 rounded-full font-semibold hover:bg-water-500/10 transition-colors">J’ai déjà une étude</a>
