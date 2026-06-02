@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (ton prompt complet, ne change rien)
+const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (ton prompt habituel)
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,15 +8,13 @@ export async function POST(req: NextRequest) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error("GEMINI_API_KEY manquante");
+      // Renvoie l'erreur clairement
       return NextResponse.json(
-        { message: "Configuration manquante : clé API Gemini non définie.", locked: false },
+        { message: "Erreur : la variable d'environnement GEMINI_API_KEY est absente.", locked: false },
         { status: 500 }
       );
     }
 
-    // Construction du corps pour l'API Gemini REST (generateContent)
-    // On utilise le modèle "gemini-1.5-flash" (gratuit et fiable)
     const requestBody = {
       contents: [
         {
@@ -35,7 +33,7 @@ export async function POST(req: NextRequest) {
     };
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -45,9 +43,9 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Erreur API Gemini:", response.status, errorText);
+      // Retourne l'erreur brute de Google pour diagnostic
       return NextResponse.json(
-        { message: "Erreur de l'assistant IA. Veuillez réessayer plus tard.", locked: false },
+        { message: `Erreur Google API (${response.status}): ${errorText}`, locked: false },
         { status: 500 }
       );
     }
@@ -63,10 +61,10 @@ export async function POST(req: NextRequest) {
         : assistantMessage,
       locked: isLocked,
     });
-  } catch (error) {
-    console.error("Erreur API chat:", error);
+  } catch (error: any) {
+    // Renvoie l'erreur d'exception
     return NextResponse.json(
-      { message: "Une erreur est survenue. Veuillez réessayer.", locked: false },
+      { message: `Exception: ${error.message}`, locked: false },
       { status: 500 }
     );
   }
