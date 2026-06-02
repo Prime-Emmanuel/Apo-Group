@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (ton prompt habituel)
+const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP...`; // (ton prompt)
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,19 +8,15 @@ export async function POST(req: NextRequest) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      // Renvoie l'erreur clairement
       return NextResponse.json(
-        { message: "Erreur : la variable d'environnement GEMINI_API_KEY est absente.", locked: false },
+        { message: "Erreur : variable GEMINI_API_KEY absente.", locked: false },
         { status: 500 }
       );
     }
 
     const requestBody = {
       contents: [
-        {
-          role: "user",
-          parts: [{ text: APO_SYSTEM_PROMPT }],
-        },
+        { role: "user", parts: [{ text: APO_SYSTEM_PROMPT }] },
         ...messages.map((msg: any) => ({
           role: msg.role === "assistant" ? "model" : "user",
           parts: [{ text: msg.content }],
@@ -32,8 +28,9 @@ export async function POST(req: NextRequest) {
       },
     };
 
+    // 👇 Utilise gemini-1.5-flash au lieu de 2.0-flash
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +40,6 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      // Retourne l'erreur brute de Google pour diagnostic
       return NextResponse.json(
         { message: `Erreur Google API (${response.status}): ${errorText}`, locked: false },
         { status: 500 }
@@ -62,7 +58,6 @@ export async function POST(req: NextRequest) {
       locked: isLocked,
     });
   } catch (error: any) {
-    // Renvoie l'erreur d'exception
     return NextResponse.json(
       { message: `Exception: ${error.message}`, locked: false },
       { status: 500 }
