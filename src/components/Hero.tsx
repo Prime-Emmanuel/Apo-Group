@@ -4,6 +4,10 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
+  const scrollToAssistant = () => {
+    document.getElementById("assistant")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-28 pb-20 md:pt-40 md:pb-32">
       {/* Image de fond de chantier */}
@@ -80,14 +84,14 @@ export default function Hero() {
               Découvrir nos solutions <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
-          <Link
-            href="/demande"
+          <button
+            onClick={scrollToAssistant}
             className="group relative px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider backdrop-blur-md hover:bg-white/10 transition-all"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Demander un devis <MessageCircle className="w-5 h-5" />
+              Parler à l’assistant IA <MessageCircle className="w-5 h-5" />
             </span>
-          </Link>
+          </button>
         </motion.div>
       </motion.div>
 
