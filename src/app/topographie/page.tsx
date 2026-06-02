@@ -266,7 +266,7 @@ export default function TopographiePage() {
           Discutez directement avec notre géomètre expert via WhatsApp.
         </p>
         <a
-          href="https://wa.me/237000000000?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20un%20renseignement%20pour%20un%20projet%20de%20topographie."
+          href="https://wa.me/237650331995?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20un%20renseignement%20pour%20un%20projet%20de%20topographie."
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors"
