@@ -269,7 +269,7 @@ export default function AssistantAPO() {
                 onClick={handleClose}
                 className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
               >
-                <Phone size={16} /> Ouvrir WhatsApp
+                <Phone size={16} />WhatsApp
               </a>
               <button
                 onClick={reset}
