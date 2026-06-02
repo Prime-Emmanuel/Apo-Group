@@ -28,9 +28,9 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    // 👇 Utilise gemini-1.5-flash au lieu de 2.0-flash
+    // 👇 Utilise gemini-1.0-pro (disponible et gratuit)
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
