@@ -230,7 +230,7 @@ export default function AssistantAPO() {
 
       case "summary":
         const typeLabel = projectTypes.find((p) => p.id === projectType)?.label || projectType;
-        const whatsappLink = `https://wa.me/237000000000?text=${generateWhatsAppMessage(
+        const whatsappLink = `https://wa.me/237650331995?text=${generateWhatsAppMessage(
           projectType,
           detail,
           location,
