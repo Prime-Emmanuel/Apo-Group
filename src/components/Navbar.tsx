@@ -11,9 +11,11 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    if (isOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'unset';
-    return () => { document.body.style.overflow = 'unset'; }
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isOpen]);
 
   const { scrollY } = useScroll();
@@ -27,7 +29,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav 
+      <motion.nav
         style={{ width, y, borderRadius, borderColor: border, backgroundColor: background }}
         className="fixed z-50 left-0 right-0 mx-auto backdrop-blur-xl border-b transition-colors"
       >
@@ -35,26 +37,34 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 md:gap-3 group z-50">
             <Image src="/logo.png" alt="APO GROUP Logo" width={32} height={32} className="object-contain md:w-10 md:h-10" />
             <span className="text-lg md:text-xl font-black tracking-widest font-heading">
-              <span className="text-water-500">APO</span> <span className="text-brand-yellow">GROUP</span>
+              <span className="text-water-500">APO</span>{" "}
+              <span className="text-brand-yellow">GROUP</span>
             </span>
           </Link>
-          
+
+          {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="#pourquoi-nous" className="text-[11px] md:text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              Pourquoi nous
+            <Link href="/forage" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Forage
             </Link>
-            <Link href="#services" className="text-[11px] md:text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              Services
+            <Link href="/topographie" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Topographie
             </Link>
-            {/* 👇 MODIFICATION : bouton remplacé par un lien */}
+            <Link href="/immobilier" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Immobilier
+            </Link>
+            <Link href="/a-propos" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              À propos
+            </Link>
             <Link
               href="/demande"
-              className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-[11px] md:text-xs font-bold transition-all uppercase tracking-widest"
+              className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-xs font-bold transition-all uppercase tracking-widest"
             >
-              Obtenir un devis
+              Devis
             </Link>
           </div>
 
+          {/* Burger */}
           <button className="md:hidden text-white z-50 p-2 -mr-2" onClick={() => setIsOpen(!isOpen)}>
             <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -63,29 +73,37 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Premium Full-Screen Mobile Menu */}
+      {/* Menu mobile premium */}
       <AnimatePresence mode="wait">
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
-            animate={{ opacity: 1, clipPath: 'circle(150% at calc(100% - 2.5rem) 2.5rem)' }}
-            exit={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
+          <motion.div
+            initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
+            animate={{ opacity: 1, clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 bg-[#0f0602]/95 backdrop-blur-3xl flex flex-col justify-center items-center px-6"
           >
-            <div className="flex flex-col items-center gap-8 text-center w-full">
-              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                <Link href="#pourquoi-nous" className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>Pourquoi nous</Link>
-              </motion.div>
-              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }}>
-                <Link href="#services" className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>Services</Link>
-              </motion.div>
-              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="mt-8 w-full max-w-[250px]">
-                {/* 👇 MODIFICATION : bouton mobile remplacé par un lien */}
+            <div className="flex flex-col items-center gap-10 text-center w-full">
+              <Link href="/forage" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Forage
+              </Link>
+              <Link href="/topographie" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Topographie
+              </Link>
+              <Link href="/immobilier" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Immobilier
+              </Link>
+              <Link href="/a-propos" className="text-xl sm:text-2xl font-heading font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                À propos
+              </Link>
+              <Link href="/contact" className="text-xl sm:text-2xl font-heading font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Contact
+              </Link>
+              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="mt-4 w-full max-w-xs">
                 <Link
                   href="/demande"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full py-4 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                  className="block w-full py-4 bg-white text-black rounded-full text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                 >
                   Obtenir un devis
                 </Link>
