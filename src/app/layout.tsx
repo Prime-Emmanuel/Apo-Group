@@ -1,10 +1,12 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import AssistantAPO from "@/components/AssistantAPO";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "APO GROUP - Solutions en Forage, Topographie et Immobilier",
-  description: "APO GROUP accompagne particuliers, entreprises et investisseurs avec des solutions fiables, rapides et professionnelles au Cameroun.",
+  description:
+    "APO GROUP accompagne particuliers, entreprises et investisseurs avec des solutions fiables, rapides et professionnelles au Cameroun.",
   icons: {
     icon: "/logo.png",
   },
