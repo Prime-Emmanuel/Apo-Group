@@ -229,12 +229,12 @@ export default function ImmobilierPage() {
         <h2 className="text-2xl md:text-4xl font-bold font-heading mb-4">Prêt à investir en toute sécurité ?</h2>
         <p className="text-gray-400 mb-8">Discutez directement avec notre expert foncier via WhatsApp.</p>
         <a
-          href="https://wa.me/237000000000?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20être%20accompagné%20pour%20l'achat%20d'un%20terrain."
+          href="https://wa.me/237650331995?text=Bonjour%20APO%20GROUP,%20je%20souhaite%20être%20accompagné%20pour%20l'achat%20d'un%20terrain."
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold uppercase tracking-wider transition-colors"
         >
-          <Phone size={18} /> Ouvrir WhatsApp
+          <Phone size={18} /> WhatsApp
         </a>
       </motion.section>
 
