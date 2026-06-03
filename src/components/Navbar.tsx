@@ -53,9 +53,13 @@ export default function Navbar() {
             <Link href="#process" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
               Comment ça marche
             </Link>
-            <Link href="/devis" aria-label="Aller à la page de demande de devis" ...>
-  Obtenir un devis
-</Link>
+            <Link
+              href="/devis"
+              aria-label="Aller à la page de demande de devis"
+              className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-xs font-bold transition-all uppercase tracking-widest"
+            >
+              Obtenir un devis
+            </Link>
           </div>
 
           {/* Burger */}
@@ -89,7 +93,7 @@ export default function Navbar() {
               </Link>
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="mt-4 w-full max-w-xs">
                 <Link
-                  href="#devis"
+                  href="/devis"
                   onClick={() => setIsOpen(false)}
                   className="block w-full py-4 bg-white text-black rounded-full text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                 >
