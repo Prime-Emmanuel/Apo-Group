@@ -4,8 +4,8 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
-  const scrollToAssistant = () => {
-    document.getElementById("assistant")?.scrollIntoView({ behavior: "smooth" });
+  const openAssistant = () => {
+    document.getElementById("assistant-floating-btn")?.click();
   };
 
   return (
@@ -16,7 +16,6 @@ export default function Hero() {
           className="absolute inset-0 bg-[url('/construction-bg.webp')] bg-cover bg-center brightness-[0.3] saturate-50"
           aria-hidden="true"
         />
-        {/* Overlay pour lisibilité */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background/90" />
       </div>
 
@@ -77,7 +76,8 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4"
         >
           <Link
-            href="/forage"
+            href="#services"
+            aria-label="Découvrir les services d'APO GROUP"
             className="group relative px-8 py-4 bg-white text-black rounded-full font-bold uppercase tracking-wider overflow-hidden transition-all hover:scale-105"
           >
             <span className="relative z-10 flex items-center gap-2">
@@ -85,11 +85,12 @@ export default function Hero() {
             </span>
           </Link>
           <button
-            onClick={scrollToAssistant}
+            onClick={openAssistant}
+            aria-label="Ouvrir l'assistant IA APO"
             className="group relative px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider backdrop-blur-md hover:bg-white/10 transition-all"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Parler à l’assistant IA <MessageCircle className="w-5 h-5" />
+              Discuter avec l’IA <MessageCircle className="w-5 h-5" />
             </span>
           </button>
         </motion.div>
