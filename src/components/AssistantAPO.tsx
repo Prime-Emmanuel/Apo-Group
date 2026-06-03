@@ -1,4 +1,3 @@
-// src/components/AssistantAPO.tsx (version avec appel API)
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,13 +65,10 @@ export default function AssistantAPO() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex justify-end">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
             <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", damping: 25, stiffness: 200 }} className="relative w-full max-w-sm md:max-w-md bg-[#0f0602]/95 backdrop-blur-2xl border-l border-white/10 h-full flex flex-col">
-              {/* Header */}
               <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-[#0f0602]/90 backdrop-blur-md border-b border-white/10">
                 <div className="flex items-center gap-2"><Bot className="w-5 h-5 text-brand-yellow" /><span className="text-white font-bold font-heading text-sm">Assistant APO</span></div>
                 <button onClick={() => setIsOpen(false)} className="p-2 text-gray-400 hover:text-white"><X size={18} /></button>
               </div>
-
-              {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((msg, i) => (
                   <div key={i} className={`flex items-start gap-2 ${msg.role === "user" ? "justify-end" : ""}`}>
@@ -94,8 +90,6 @@ export default function AssistantAPO() {
                 )}
                 <div ref={bottomRef} />
               </div>
-
-              {/* Input */}
               <div className="p-3 border-t border-white/10 bg-black/40">
                 <div className="flex items-center gap-2">
                   <input ref={inputRef} type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder={locked ? "Conversation verrouillée" : "Écrivez votre message..."} disabled={locked || loading} className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand-yellow disabled:opacity-50 text-sm" />
