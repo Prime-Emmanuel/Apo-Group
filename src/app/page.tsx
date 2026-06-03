@@ -129,11 +129,11 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
           <div className="space-y-4">
             <p className="text-white font-semibold text-lg flex items-center gap-2"><MapPin size={18} /> Adresse</p>
-            <p className="text-gray-400">Yaoundé, Cameroun</p>
+            <p className="text-gray-400">Douala, Cameroun (Logpom)</p>
             <p className="text-white font-semibold text-lg flex items-center gap-2"><Phone size={18} /> Téléphone</p>
             <a href="tel:+237650331995" className="text-gray-400 hover:text-white">+237 6 50 33 19 95</a>
             <p className="text-white font-semibold text-lg flex items-center gap-2"><Mail size={18} /> Email</p>
-            <a href="mailto:contact@apogroup.cm" className="text-gray-400 hover:text-white">contact@apogroup.cm</a>
+            <a href="mailto:contactapogroup@gmail.com" className="text-gray-400 hover:text-white">contactapogroup@gmail.com</a>
           </div>
           <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 space-y-4">
             <p className="text-white font-semibold text-lg">💬 WhatsApp</p>
@@ -146,7 +146,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold transition-colors"
             >
-              <Phone size={18} /> Ouvrir WhatsApp
+              <Phone size={18} /> Ecrivez Nous
             </a>
           </div>
         </div>
