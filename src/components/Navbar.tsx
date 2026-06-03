@@ -44,23 +44,21 @@ export default function Navbar() {
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/forage" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              Forage
+            <Link href="#pourquoi-nous" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Pourquoi nous
             </Link>
-            <Link href="/topographie" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              Topographie
+            <Link href="#services" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Services
             </Link>
-            <Link href="/immobilier" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              Immobilier
-            </Link>
-            <Link href="/a-propos" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
-              À propos
+            <Link href="#process" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+              Comment ça marche
             </Link>
             <Link
-              href="/demande"
+              href="#devis"
+              aria-label="Aller à la section demande de devis"
               className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-xs font-bold transition-all uppercase tracking-widest"
             >
-              Devis
+              Obtenir un devis
             </Link>
           </div>
 
@@ -84,24 +82,18 @@ export default function Navbar() {
             className="fixed inset-0 z-40 bg-[#0f0602]/95 backdrop-blur-3xl flex flex-col justify-center items-center px-6"
           >
             <div className="flex flex-col items-center gap-10 text-center w-full">
-              <Link href="/forage" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
-                Forage
+              <Link href="#pourquoi-nous" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Pourquoi nous
               </Link>
-              <Link href="/topographie" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
-                Topographie
+              <Link href="#services" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Services
               </Link>
-              <Link href="/immobilier" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
-                Immobilier
-              </Link>
-              <Link href="/a-propos" className="text-xl sm:text-2xl font-heading font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" onClick={() => setIsOpen(false)}>
-                À propos
-              </Link>
-              <Link href="/contact" className="text-xl sm:text-2xl font-heading font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" onClick={() => setIsOpen(false)}>
-                Contact
+              <Link href="#process" className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+                Comment ça marche
               </Link>
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="mt-4 w-full max-w-xs">
                 <Link
-                  href="/demande"
+                  href="#devis"
                   onClick={() => setIsOpen(false)}
                   className="block w-full py-4 bg-white text-black rounded-full text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                 >
