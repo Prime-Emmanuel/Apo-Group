@@ -1,3 +1,4 @@
+// src/app/api/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 const APO_SYSTEM_PROMPT = `Tu es l'assistant virtuel d'APO GROUP, une entreprise camerounaise spécialisée dans le forage d'eau, la topographie et l'immobilier (achat de terrain, vérification documentaire, BTP). 
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",   // ← model actif gratuit
       messages: [
         { role: "system", content: APO_SYSTEM_PROMPT },
         ...messages,
