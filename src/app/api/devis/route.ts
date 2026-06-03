@@ -15,11 +15,21 @@ export async function POST(req: NextRequest) {
     const reference = generateReference();
     const pdfBuffer = generateDevisPDF({ reference, service, details, contact, files: files || [] });
 
-    // Send emails (don't block response)
-    Promise.allSettled([
-      sendInternalEmail(reference, service, contact.name, pdfBuffer),
-      sendClientConfirmation(reference, contact.name, contact.email),
-    ]);
+    // Try sending internal email
+    try {
+      await sendInternalEmail(reference, service, contact.name, pdfBuffer);
+      console.log("✅ Internal email sent");
+    } catch (e: any) {
+      console.error("❌ Internal email failed:", e.message);
+    }
+
+    // Try sending client confirmation
+    try {
+      await sendClientConfirmation(reference, contact.name, contact.email);
+      console.log("✅ Client email sent");
+    } catch (e: any) {
+      console.error("❌ Client email failed:", e.message);
+    }
 
     return NextResponse.json({ success: true, reference });
   } catch (error) {
