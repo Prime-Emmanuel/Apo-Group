@@ -53,13 +53,9 @@ export default function Navbar() {
             <Link href="#process" className="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
               Comment ça marche
             </Link>
-            <Link
-              href="#devis"
-              aria-label="Aller à la section demande de devis"
-              className="px-6 py-2 bg-white hover:bg-gray-200 text-black rounded-full text-xs font-bold transition-all uppercase tracking-widest"
-            >
-              Obtenir un devis
-            </Link>
+            <Link href="/devis" aria-label="Aller à la page de demande de devis" ...>
+  Obtenir un devis
+</Link>
           </div>
 
           {/* Burger */}
