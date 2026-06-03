@@ -10,9 +10,16 @@ interface Message {
 
 export default function AssistantAPO() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Bonjour ! Je suis l'assistant APO GROUP. Comment puis-je vous aider ?" },
-  ]);
+ const getGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Bonjour";
+  if (hour < 18) return "Bon après‑midi";
+  return "Bonsoir";
+};
+
+const [messages, setMessages] = useState<Message[]>([
+  { role: "assistant", content: `${getGreeting()} ! Je suis l'assistant APO GROUP. Comment puis-je vous aider ?` },
+]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [locked, setLocked] = useState(false);
