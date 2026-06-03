@@ -55,10 +55,15 @@ export default function AssistantAPO() {
 
   return (
     <>
-      <button onClick={() => setIsOpen(!isOpen)} className="fixed bottom-6 right-5 md:right-10 z-50 flex items-center gap-2 bg-brand-yellow text-black rounded-full p-3 md:p-4 shadow-[0_0_30px_rgba(250,204,21,0.3)] hover:scale-105 transition-transform">
-        <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="hidden md:inline text-sm font-bold uppercase tracking-wider">Assistant</span>
-      </button>
+      <button
+  id="assistant-floating-btn"
+  onClick={() => setIsOpen(!isOpen)}
+  className="fixed bottom-6 right-5 md:right-10 z-50 flex items-center gap-2 bg-brand-yellow text-black rounded-full p-3 md:p-4 shadow-[0_0_30px_rgba(250,204,21,0.3)] hover:scale-105 transition-transform"
+  aria-label="Assistant APO"
+>
+  <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
+  <span className="hidden md:inline text-sm font-bold uppercase tracking-wider">Assistant</span>
+</button>
 
       <AnimatePresence>
         {isOpen && (
