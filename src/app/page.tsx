@@ -1,3 +1,4 @@
+"use client";   // <-- indispensable pour les event handlers
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import WhyChooseUs from "@/components/WhyChooseUs";
