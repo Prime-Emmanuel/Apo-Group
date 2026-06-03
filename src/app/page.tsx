@@ -6,6 +6,7 @@ import Process from "@/components/Process";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Phone, MapPin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
